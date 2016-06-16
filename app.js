@@ -12,14 +12,14 @@ var server = http.createServer(function (request, response) {
       json: true
     }, function (error, response_thingiverse, body)
     {
-      response_string = "<h1>Rosalila's Hub History</h1>"
+      str_response = "<h1>Rosalila's Hub History</h1>"
       for(i=0;i<JSON.stringify(response_thingiverse.body.length);i++)
       {
-        response_response+= "<h2>"+response_thingiverse.body[i].name+"</h2>"
-        response_response+= "<img src=\'"+response_thingiverse.body[i].thumbnail+"\'/>"
-        response_response+= "<p>"+JSON.stringify(response_thingiverse.body[i])+"</p>"
+        str_response+= "<h2>"+response_thingiverse.body[i].name+"</h2>"
+        str_response+= "<img src=\'"+response_thingiverse.body[i].thumbnail+"\'/>"
+        str_response+= "<p>"+JSON.stringify(response_thingiverse.body[i])+"</p>"
       }
-      response.end(response_response);
+      response.end(str_response);
     })
   }else
   {
