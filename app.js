@@ -23,7 +23,8 @@ var server = http.createServer(function (request, response) {
     })
   }else
   {
-    str_response = "<script>"
+    str_response ="<a href='https://www.thingiverse.com/login/oauth/authorize?client_id=01e6eab25045aa343883&redirect_uri=http://rosalilastudio.com:8000&response_type=token'>login with thingiverse</a>"
+    str_response+= "<script>"
     str_response+= "if(window.location.hash.split('access_token=')[1])"
     str_response+= "window.location = '/?value='+window.location.hash.split('access_token=')[1]"
     str_response+= "</script>"
