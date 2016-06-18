@@ -29,7 +29,7 @@ app.get('/', function(req, res) {
       }
       //response.end(str_response);
 
-    res.render('pages/index',{a:response_thingiverse.body});
+    res.render('pages/index',{not_logged:false,thingiverse:response_thingiverse.body});
     })
   }else
   {
@@ -39,7 +39,7 @@ app.get('/', function(req, res) {
     str_response+= "window.location = '/?value='+window.location.hash.split('access_token=')[1]"
     str_response+= "</script>"
     //response.end(str_response);
-    res.render('pages/index',{a:response_thingiverse.body});
+    res.render('pages/index',{not_logged:true});
   }
 });
 

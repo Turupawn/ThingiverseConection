@@ -1,7 +1,15 @@
-<h1>Parrifini</h1>
-<% for(i=0;i<a.length;i++){ %>
-  <h2><%=a[i].name%></h2>
-  <a href="<%=a[i].public_url%>">Go</a>
-  <img src="<%=a[i].thumbnail%>"/>
+<% if(not_logged){ %>
+  <a href='https://www.thingiverse.com/login/oauth/authorize?client_id=01e6eab25045aa343883&redirect_uri=http://rosalilastudio.com:8000&response_type=token'>login with thingiverse</a>
+  <script>
+    if(window.location.hash.split('access_token=')[1])
+      window.location = '/?value='+window.location.hash.split('access_token=')[1]
+  </script>
+<% }else{ %>
+  <h1>Parrifini</h1>
+  <% for(i=0;i<thingiverse.length;i++){ %>
+    <h2><%=thingiverse[i].name%></h2>
+    <a href="<%=thingiverse[i].public_url%>">Go</a>
+    <img src="<%=thingiverse[i].thumbnail%>"/>
+  <% } %>
+  <%=JSON.stringify(thingiverse)%>
 <% } %>
-<%=JSON.stringify(a)%>
