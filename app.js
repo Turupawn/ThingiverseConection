@@ -1,9 +1,17 @@
-var http = require('http');
+// server.js
+// load the things we need
+var express = require('express');
 var requesta = require("request")
+var app = express();
 
-var server = http.createServer(function (request, response) {
-  response.writeHead(200, {"Content-Type": "text/html"});
-  access_token = request.url.split('value=')[1]
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
+// use res.render to load up an ejs view file
+
+// index page 
+app.get('/', function(req, res) {
+  access_token = req.url.split('value=')[1]
   if(access_token)
   {
     requesta(
@@ -19,7 +27,9 @@ var server = http.createServer(function (request, response) {
         str_response+= "<img src=\'"+response_thingiverse.body[i].thumbnail+"\'/>"
         str_response+= "<p>"+JSON.stringify(response_thingiverse.body[i])+"</p>"
       }
-      response.end(str_response);
+      //response.end(str_response);
+
+    res.render('pages/index',{a:response_thingiverse.body});
     })
   }else
   {
@@ -28,9 +38,15 @@ var server = http.createServer(function (request, response) {
     str_response+= "if(window.location.hash.split('access_token=')[1])"
     str_response+= "window.location = '/?value='+window.location.hash.split('access_token=')[1]"
     str_response+= "</script>"
-    response.end(str_response);
+    //response.end(str_response);
+    res.render('pages/index',{a:response_thingiverse.body});
   }
 });
 
-server.listen(8000);
-console.log("Server running at http://127.0.0.1:8000/");
+// about page 
+app.get('/about', function(req, res) {
+    res.render('pages/about');
+});
+
+app.listen(8000);
+console.log('8000 is the magic port');

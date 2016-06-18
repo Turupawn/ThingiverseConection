@@ -1,0 +1,7 @@
+<h1>Parrifini</h1>
+<% for(i=0;i<a.length;i++){ %>
+  <h2><%=a[i].name%></h2>
+  <a href="<%=a[i].public_url%>">Go</a>
+  <img src="<%=a[i].thumbnail%>"/>
+<% } %>
+<%=JSON.stringify(a)%>
