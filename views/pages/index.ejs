@@ -58,6 +58,7 @@
           <th>Name</th>
           <th>Creator</th>
           <th>Maker</th>
+          <th>Likes</th>
           <th>Date</th>
         </tr>
       </thead>
@@ -65,7 +66,7 @@
         <% for(i=0;i<copies.length;i++){ %>
           <td>
             <a href="<%=copies[i][0].public_url%>">
-              <img src="<%=copies[i][0].thing.thumbnail%>"/>
+              <img src="<%=copies[i][0].thumbnail%>"/>
             </a>
           </td>
             <td>
@@ -84,10 +85,15 @@
               </a>
             </td>
             <td>
+              <%=copies[i][0].like_count%>
+            </td>
+            <td>
               <%=copies[i][0].added%>
             </td>
         <% } %>
       </tbody>
     </table>
 <% } %>
-<!--<%=JSON.stringify(copies[0][0])%>-->
+<!--
+<%=JSON.stringify(copies[0][0])%>
+-->
