@@ -50,7 +50,7 @@ app.get('/', function(req, res) {
     }
 
 
-    Promise.all(promises).then(function(values) { 
+    promise.all(promises).then(function(values) { 
       res.render('pages/index',{not_logged:false,collections:collections,collection_names: collection_names,copies: copies});
     })
   }else
