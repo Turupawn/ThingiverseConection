@@ -71,32 +71,36 @@
     </thead>
     <tbody>
       <% for(i=0;i<copies.length;i++){ %>
-        <td>
-          <a href="<%=copies[i][0].public_url%>">
-            <img src="<%=copies[i][0].thumbnail%>"/>
-          </a>
-        </td>
+        <% for(j=0;j<copies[i].length;j++){ %>
+          <tr>
           <td>
-            <a href="<%=copies[i][0].public_url%>">
-              <%=copies[i][0].thing.name%>
+            <a href="<%=copies[i][j].public_url%>">
+              <img src="<%=copies[i][j].thumbnail%>"/>
             </a>
           </td>
           <td>
-            <a href="<%=copies[i][0].thing.creator.public_url%>">
-              <%=copies[i][0].thing.creator.name%>
+            <a href="<%=copies[i][j].public_url%>">
+              <%=copies[i][j].thing.name%>
             </a>
           </td>
           <td>
-            <a href="<%=copies[i][0].maker.public_url%>">
-              <%=copies[i][0].maker.name%>
+            <a href="<%=copies[i][j].thing.creator.public_url%>">
+              <%=copies[i][j].thing.creator.name%>
             </a>
           </td>
           <td>
-            <%=copies[i][0].like_count%>
+            <a href="<%=copies[i][j].maker.public_url%>">
+              <%=copies[i][j].maker.name%>
+            </a>
           </td>
           <td>
-            <%=copies[i][0].added%>
+            <%=copies[i][j].like_count%>
           </td>
+          <td>
+            <%=copies[i][j].added%>
+          </td>
+          </tr>
+        <% } %>
       <% } %>
     </tbody>
   </table>

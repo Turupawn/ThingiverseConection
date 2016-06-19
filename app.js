@@ -34,12 +34,12 @@ app.get('/', function(req, res) {
       }))
     }
 
-    for(i=0;i<collection_ids.length;i++)
+    for(i=0;i<users.length;i++)
     {
       promises.push( new promise(function(resolve, reject) {
         request(
         {
-          url: 'https://api.thingiverse.com/users/'+users[0]+'/copies?access_token='+access_token,
+          url: 'https://api.thingiverse.com/users/'+users[i]+'/copies?access_token='+access_token,
           json: true
         }, function (error, response, body)
         {
