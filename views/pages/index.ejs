@@ -5,11 +5,18 @@
       window.location = '/?value='+window.location.hash.split('access_token=')[1]
   </script>
 <% }else{ %>
-  <h1>Parrifini</h1>
-  <% for(i=0;i<thingiverse.length;i++){ %>
-    <h2><%=thingiverse[i].name%></h2>
-    <a href="<%=thingiverse[i].public_url%>">Go</a>
-    <img src="<%=thingiverse[i].thumbnail%>"/>
+  <h1>Rosalila's printer</h1>
+  <% for(i=0;i<collections.length;i++){ %>
+    <h2><%=collection_names[i]%></h2>
+    <% for(j=0;j<collections[i].length;j++){ %>
+      <h3><%=collections[i][j].name%></h3>
+      <a href="<%=collections[i][j].public_url%>">
+        <img src="<%=collections[i][j].thumbnail%>"/>
+      </a>
+    <% } %>
   <% } %>
-  <%=JSON.stringify(thingiverse)%>
+  <% for(i=0;i<copies.length;i++){ %>
+    <h3><%=JSON.stringify(copies[i])%></h3>
+  <% } %>
+  <!--<%=JSON.stringify(collections)%>-->
 <% } %>

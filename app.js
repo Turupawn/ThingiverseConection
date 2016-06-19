@@ -2,6 +2,7 @@
 // load the things we need
 var express = require('express');
 var request = require("request")
+var promise = require('promise')
 var app = express();
 
 // set the view engine to ejs
@@ -12,15 +13,47 @@ app.set('view engine', 'ejs');
 // index page 
 app.get('/', function(req, res) {
   access_token = req.url.split('value=')[1]
+
   if(access_token)
   {
-    request(
+    collections = []
+    copies = []
+    promises = []
+    collection_ids = ['5907168','5907119']
+    users = ['sucito']
+    collection_names = ['AAA','BBB']
+    for(i=0;i<collection_ids.length;i++)
     {
-      url: 'https://api.thingiverse.com/collections/5907119/things?access_token='+access_token,
-      json: true
-    }, function (error, response_thingiverse, body)
-    {
-      res.render('pages/index',{not_logged:false,thingiverse:response_thingiverse.body});
+      promises.push( new promise(function(resolve, reject) {
+        request(
+        {
+          url: 'https://api.thingiverse.com/collections/'+collection_ids[i]+'/things?access_token='+access_token,
+          json: true
+        }, function (error, response, body)
+        {
+          collections.push(response.body)
+          resolve('')
+        })
+      }))
+    }
+
+
+      promises.push( new promise(function(resolve, reject) {
+        request(
+        {
+          url: 'https://api.thingiverse.com/users/'+users[i]+'/copies?access_token='+access_token,
+          json: true
+        }, function (error, response, body)
+        {
+          copies.push(response.body)
+          resolve('')
+        })
+      }))
+
+
+
+    Promise.all(promises).then(function(values) { 
+      res.render('pages/index',{not_logged:false,collections:collections,collection_names: collection_names,copies: copies});
     })
   }else
   {
