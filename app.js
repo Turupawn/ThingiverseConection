@@ -1,16 +1,13 @@
 // server.js
 // load the things we need
-var express = require('express');
+var express = require('express')
 var request = require("request")
 var promise = require('promise')
 var app = express();
 
-// set the view engine to ejs
+app.use(express.static('public'))
 app.set('view engine', 'ejs');
 
-// use res.render to load up an ejs view file
-
-// index page 
 app.get('/', function(req, res) {
   access_token = req.url.split('value=')[1]
 
@@ -19,9 +16,9 @@ app.get('/', function(req, res) {
     collections = []
     copies = []
     promises = []
-    collection_ids = ['5907168','5907119']
-    users = ['sucito']
-    collection_names = ['AAA','BBB']
+    collection_ids = ["5938346"]
+    users = ["sucito","turupawn"]
+    collection_names = ["Turupawn's TODO list"]
     for(i=0;i<collection_ids.length;i++)
     {
       promises.push( new promise(function(resolve, reject) {
@@ -37,11 +34,12 @@ app.get('/', function(req, res) {
       }))
     }
 
-
+    for(i=0;i<collection_ids.length;i++)
+    {
       promises.push( new promise(function(resolve, reject) {
         request(
         {
-          url: 'https://api.thingiverse.com/users/'+users[i]+'/copies?access_token='+access_token,
+          url: 'https://api.thingiverse.com/users/'+users[0]+'/copies?access_token='+access_token,
           json: true
         }, function (error, response, body)
         {
@@ -49,7 +47,7 @@ app.get('/', function(req, res) {
           resolve('')
         })
       }))
-
+    }
 
 
     Promise.all(promises).then(function(values) { 
