@@ -8,17 +8,24 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.1.0/milligram.min.css">
 
 <!-- You should properly set the path from the main file. -->
+<h1>Rosalila Studio & Community Space 3D printing site</h1>
+<p>Rosalila S.&C.S. recently acquired a 3d printer. So we made this site to improve our worflow by organising and keeping record of our prints. Also, it lets anyone easily discover our projects.</p>
+<p>First, login with Thingiverse then:</p>
+<ul>
+  <li>Find out about our printing queue in the <a href="#collections">collections section</a></li>
+  <li>Check out our printing history in the <a href="#makes">makes section</a></li>
+  <li>Order a print at <a href="https://www.3dhubs.com/tegucigalpa/hubs/rosalila-sc">3dhubs</a></li>
+</ul>
 <% if(not_logged){ %>
-  <a href='https://www.thingiverse.com/login/oauth/authorize?client_id=01e6eab25045aa343883&redirect_uri=http://rosalilastudio.com:8000&response_type=token'>login with thingiverse</a>
+  <a class="button button-outline" href='https://www.thingiverse.com/login/oauth/authorize?client_id=01e6eab25045aa343883&redirect_uri=http://rosalilastudio.com:8000&response_type=token'>login with thingiverse</a>
   <script>
     if(window.location.hash.split('access_token=')[1])
       window.location = '/?value='+window.location.hash.split('access_token=')[1]
   </script>
 <% }else{ %>
-  <h1>Rosalila's printer</h1>
-  <h2>Collections</h2>
+  <h2 id="collections">Collections</h2>
   <% for(i=0;i<collections.length;i++){ %>
-    <h3><%=collection_names[i]%></h3>
+    <h4><%=collection_names[i]%></h4>
     <table>
       <thead>
         <tr>
@@ -50,7 +57,7 @@
       </tbody>
     </table>
   <% } %>
-  <h2>Makes</h2>
+  <h2 id="makes">Makes</h2>
     <table>
       <thead>
         <tr>
