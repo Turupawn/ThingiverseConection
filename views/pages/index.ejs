@@ -25,7 +25,7 @@
 <% }else{ %>
   <h2 id="collections">Collections</h2>
   <% for(i=0;i<collections.length;i++){ %>
-    <h4><%=collection_names[i]%></h4>
+    <h4><%=collections[i][0]%></h4>
     <table>
       <thead>
         <tr>
@@ -35,21 +35,21 @@
         </tr>
       </thead>
       <tbody>
-        <% for(j=0;j<collections[i].length;j++){ %>
+        <% for(j=0;j<collections[i][1].length;j++){ %>
           <tr>
             <td>
-              <a href="<%=collections[i][j].public_url%>">
-                <img src="<%=collections[i][j].thumbnail%>"/>
+              <a href="<%=collections[i][1][j].public_url%>">
+                <img src="<%=collections[i][1][j].thumbnail%>"/>
               </a>
             </td>
             <td>
-              <a href="<%=collections[i][j].public_url%>">
-                <%=collections[i][j].name%>
+              <a href="<%=collections[i][1][j].public_url%>">
+                <%=collections[i][1][j].name%>
               </a>
             </td>
             <td>
-              <a href="<%=collections[i][j].creator.public_url%>">
-                <%=collections[i][j].creator.name%>
+              <a href="<%=collections[i][1][j].creator.public_url%>">
+                <%=collections[i][1][j].creator.name%>
               </a>
             </td>
           </tr>

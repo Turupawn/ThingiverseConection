@@ -11,27 +11,61 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res) {
   access_token = req.url.split('value=')[1]
 
-  if(access_token)
+  if(access_token)		
   {
     collections = []
     copies = []
     promises = []
-    collection_ids = ["5938346"]
-    users = ["sucito","turupawn"]
-    collection_names = ["Turupawn's TODO list"]
-    for(i=0;i<collection_ids.length;i++)
+    promises2 = []
+    promises_collections = []
+    collection_ids = [5938346]
+    users = ["turupawn"]
+
+    for(i=0;i<users.length;i++)
     {
-      promises.push( new promise(function(resolve, reject) {
+      promise_user_collection = new promise(function(resolve, reject) {
         request(
         {
-          url: 'https://api.thingiverse.com/collections/'+collection_ids[i]+'/things?access_token='+access_token,
+          url: 'https://api.thingiverse.com/users/'+users[i]+'/collections?access_token='+access_token,
           json: true
         }, function (error, response, body)
         {
-          collections.push(response.body)
-          resolve('')
+          for(j=0;j<response.body.length;j++)
+          {
+            exists=false
+            for(k=0;k<collection_ids.length;k++)
+            {
+              if(response.body[j].id==collection_ids[k])
+              {
+                exists=true
+              }
+            }
+            if(exists)
+            {
+              resolve([response.body[j].id,response.body[j].name])
+            }else
+            {
+              reject('')
+            }
+          }
         })
-      }))
+      })
+
+      promises.push(promise_user_collection)
+
+      promise_user_collection.then(function(collection) {
+        promises2.push( new promise(function(resolve, reject) {
+          request(
+          {
+            url: 'https://api.thingiverse.com/collections/'+collection[0]+'/things?access_token='+access_token,
+            json: true
+          }, function (error, response, body)
+          {
+            collections.push([collection[1],response.body])
+            resolve('')
+          })
+        }))
+      })
     }
 
     for(i=0;i<users.length;i++)
@@ -49,9 +83,10 @@ app.get('/', function(req, res) {
       }))
     }
 
-
     promise.all(promises).then(function(values) { 
-      res.render('pages/index',{not_logged:false,collections:collections,collection_names: collection_names,copies: copies});
+      promise.all(promises2).then(function(values) { 
+        res.render('pages/index',{not_logged:false,collections:collections,copies: copies});
+      })
     })
   }else
   {
@@ -59,7 +94,7 @@ app.get('/', function(req, res) {
   }
 });
 
-// about page 
+// about page
 app.get('/about', function(req, res) {
     res.render('pages/about');
 });
