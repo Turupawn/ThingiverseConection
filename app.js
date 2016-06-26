@@ -32,22 +32,15 @@ app.get('/', function(req, res) {
         {
           for(j=0;j<response.body.length;j++)
           {
-            exists=false
             for(k=0;k<collection_ids.length;k++)
             {
               if(response.body[j].id==collection_ids[k])
               {
-                exists=true
+                resolve([response.body[j].id,response.body[j].name])
               }
             }
-            if(exists)
-            {
-              resolve([response.body[j].id,response.body[j].name])
-            }else
-            {
-              reject('')
-            }
           }
+          reject('')
         })
       })
 
