@@ -18,8 +18,8 @@ app.get('/', function(req, res) {
     promises = []
     promises2 = []
     promises_collections = []
-    collection_ids = [5938346,5024209]
-    users = ["turupawn","sucito"]
+    collection_ids = [5938346,5024209,5975514]
+    users = ["turupawn","sucito","morghan831"]
 
     for(i=0;i<users.length;i++)
     {
